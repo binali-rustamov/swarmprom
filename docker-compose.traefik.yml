@@ -4,7 +4,7 @@ networks:
   net:
     driver: overlay
     attachable: true
-  traefik-public:
+  traefik-net:
     external: true
 
 volumes:
@@ -62,7 +62,7 @@ services:
     networks:
       - default
       - net
-      - traefik-public
+      - traefik-net
     environment:
       - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
       - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
@@ -104,7 +104,7 @@ services:
     networks:
       - default
       - net
-      - traefik-public
+      - traefik-net
     environment:
       - SLACK_URL=${SLACK_URL:-https://hooks.slack.com/services/TOKEN}
       - SLACK_CHANNEL=${SLACK_CHANNEL:-general}
@@ -143,7 +143,7 @@ services:
     networks:
       - default
       - net
-      - traefik-public
+      - traefik-net
     environment:
       - "ALERTMANAGER_URIS=default:http://alertmanager:9093"
     deploy:
@@ -192,7 +192,7 @@ services:
     networks:
       - default
       - net
-      - traefik-public
+      - traefik-net
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.path=/prometheus'
